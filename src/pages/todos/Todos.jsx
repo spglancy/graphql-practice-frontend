@@ -7,20 +7,21 @@ import './Todos.css'
 function Todos(props) {
   const [redirect, setRedirect] = useState(false)
   const [todoTitle, setTodoTitle] = useState('')
+  const [rerender, setRerender] = useState('')
 
   if (localStorage.getItem("todoId") == null || typeof localStorage.getItem("todoId") == "undefined") setRedirect(true)
 
   const todoQuery = gql`
-  mutation{
+  mutation($title: String!, $completed: Boolean!){
     updateTodo(title: $title, completed: $completed){
-      id
+      completed
     }
   }
   `
 
   const addTodoQuery = gql`
-  mutation{
-    addTodo(title: "${todoTitle}", completed: false, author: "${localStorage.getItem("todoId")}"){
+  mutation($title: String!, $id: ID){
+    addTodo(title: $title, completed: false, author: $id){
       id
     }
   }
@@ -37,9 +38,18 @@ function Todos(props) {
   }
   `
 
-  const [updateTodo, { data: addRes }] = useMutation(todoQuery)
-  const [addTodo, { data: updateRes }] = useMutation(addTodoQuery)
-  const { loading, data, refetch } = useQuery(query, { onError: e => console.log(e) })
+  const deleteTodoQuery = gql`
+  mutation($title: String!){
+    deleteTodo(title: $title){
+      id
+    }
+  }
+  `
+
+  const [updateTodo, { data: addRes, loading: updateLoading }] = useMutation(todoQuery)
+  const [addTodo, { data: updateRes, loading: addLoading }] = useMutation(addTodoQuery)
+  const [deleteTodo, { data: deleteRes, loading: deleteLoading }] = useMutation(deleteTodoQuery)
+  const { loading, data, refetch } = useQuery(query)
 
   return (
     <div className='todoContainer'>
@@ -47,9 +57,9 @@ function Todos(props) {
       {redirect && <Redirect to={{ pathname: '/', state: { fail: true } }} />}
       <form onSubmit={e => {
         e.preventDefault()
-        addTodo({ variables: { title: todoTitle } })
-        refetch()
+        addTodo({ variables: { title: todoTitle, id: localStorage.getItem("todoId") } })
         setTodoTitle('')
+        if (!addLoading) refetch()
       }
       }>
         <input placeholder='Type your task here!' value={todoTitle} onChange={e => {
@@ -58,12 +68,18 @@ function Todos(props) {
       </form>
       {typeof data != "undefined" ? data.user.todos.map(todo => {
         return (<div className='todo' key={todo.title}>
-          {todo.completed ? <input type='checkbox' checked onChange={e => {
-            updateTodo({ variables: { title: todo.title, completed: e.target.value } })
-            console.log(updateRes)
+          <input type='checkbox' checked={todo.completed} onChange={e => {
+            updateTodo({ variables: { title: todo.title, completed: !todo.completed } })
+            if (!updateLoading) {
+              refetch()
+            }
           }
-          } /> : <input type='checkbox' onChange={null} />}
+          } />
           <span>{todo.title}</span>
+          {todo.completed && <button onClick={() => {
+            deleteTodo({ variables: { title: todo.title } })
+            if (!deleteLoading) refetch()
+          }}>Remove</button>}
         </div>)
       }) : null}
     </div>

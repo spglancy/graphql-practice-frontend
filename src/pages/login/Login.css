@@ -11,14 +11,37 @@
           justify-content: space-between;
   -ms-flex-line-pack: center;
       align-content: center;
-  width: 30vw;
-  height: 35vh;
+  width: 25vw;
+  height: 45vh;
   -ms-flex-item-align: center;
       align-self: center;
   justify-self: center;
   border: 1px solid black;
   border-radius: 10px;
   padding: 35px;
+}
+
+.loginContainer button {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 10px 15px 10px 15px;
+  border: 1px solid #2453ec;
+  border-radius: 5px;
+  color: #2453ec;
+  font-weight: 600;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.loginContainer button:hover {
+  color: white;
+  background: #2453ec;
+  cursor: pointer;
 }
 
 .loginContainer h2 {
@@ -51,5 +74,11 @@
 
 .loginContainer input:focus {
   outline: none;
+}
+
+.loginContainer .swap {
+  font-size: .7em;
+  color: blue;
+  cursor: pointer;
 }
 /*# sourceMappingURL=Login.css.map */

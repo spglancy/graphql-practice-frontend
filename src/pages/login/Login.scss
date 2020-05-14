@@ -3,13 +3,29 @@
   flex-direction: column;
   justify-content: space-between;
   align-content: center;
-  width: 30vw;
-  height: 35vh;
+  width: 25vw;
+  height: 45vh;
   align-self: center;
   justify-self: center;
   border: 1px solid black;
   border-radius: 10px;
   padding: 35px;
+
+  button{
+    width: max-content;
+    height:max-content;
+    padding: 10px 15px 10px 15px;
+    border: 1px solid rgb(36, 83, 236);
+    border-radius: 5px;
+    color: rgb(36, 83, 236);
+    font-weight: 600;
+    align-self: center;
+    &:hover{
+      color: white;
+      background: rgb(36, 83, 236);
+      cursor: pointer;
+    }
+  }
 
   h2{
     margin: 0;
@@ -32,5 +48,11 @@
     &:focus{
       outline: none;
     }
+  }
+
+  .swap {
+    font-size: .7em;
+    color: blue;
+    cursor: pointer;
   }
 }

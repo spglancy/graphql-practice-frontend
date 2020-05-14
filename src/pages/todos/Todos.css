@@ -12,6 +12,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .todoContainer .todo {
@@ -19,6 +21,33 @@
   margin: 5vh 0 0 0;
   text-align: left;
   font-size: 1.3em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.todoContainer .todo button {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 8px;
+  font-size: .6em;
+  color: red;
+  border: 1px solid red;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.todoContainer .todo button:hover {
+  background: red;
+  color: white;
+  cursor: pointer;
 }
 
 .todoContainer .todo input {
