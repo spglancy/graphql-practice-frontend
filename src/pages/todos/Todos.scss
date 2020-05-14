@@ -1,0 +1,31 @@
+.todoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .todo{
+    width: 60%;
+    margin: 5vh 0 0 0;
+    text-align: left;
+    font-size: 1.3em;
+    input{
+      margin-right: 3vw;
+      transform: scale(1.3);
+    }
+  }
+
+  form {
+    width: 60%;
+    input{
+      width: 100%;
+      border: none;
+      padding: 10px;
+      font-size: 1.2em;
+      border-left: 1px solid rgb(46, 46, 46);
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+}
