@@ -51,7 +51,7 @@ function Login(props) {
         }
       }}>
         <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
-        <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+        <input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <button type="submit">{newUser ? 'Register' : 'Login'}</button>
         <span className='swap' onClick={() => setUser(!newUser)}>{newUser ? 'Already Have an Account?' : 'Dont Have an Account?'}</span>
       </form>
